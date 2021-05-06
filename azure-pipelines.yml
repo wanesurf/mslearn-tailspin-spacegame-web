@@ -1,8 +1,6 @@
 trigger:
 - '*'
 
-
-
 variables:
   buildConfiguration: 'Release'
   wwwrootDir: 'Tailspin.SpaceGame.Web/wwwroot'
@@ -78,10 +76,10 @@ stages:
       demands:
       - npm
     steps:
-    - task: DotNetCoreCLI@2
-      displayName: 'Run unit tests - $(buildConfiguration)'
-      inputs:
-        command: 'test'
-        arguments: '--no-build --configuration $(buildConfiguration)'
-        publishTestResults: true
-        projects: '**/*.Tests.csproj'
+      - task: DotNetCoreCLI@2
+        displayName: 'Run unit tests - $(buildConfiguration)'
+        inputs:
+          command: 'test'
+          arguments: '--no-build --configuration $(buildConfiguration)'
+          publishTestResults: true
+          projects: '**/*.Tests.csproj'
