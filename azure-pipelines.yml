@@ -1,10 +1,7 @@
 trigger:
 - '*'
 
-pool:
-  vmImage: 'ubuntu-18.04'
-  demands:
-  - npm
+
 
 variables:
   buildConfiguration: 'Release'
@@ -14,7 +11,13 @@ variables:
 stages: 
 - stage : 'build'
   displayName:'Phase de build'
-
+  jobs:
+  - job:'Build'
+     displayName: 'Build job'
+     pool:
+      vmImage: 'ubuntu-18.04'
+      demands:
+      - npm
     steps:
     - task: UseDotNet@2
       displayName: 'Use .NET Core SDK $(dotnetSdkVersion)'
@@ -65,9 +68,15 @@ stages:
 
 
 stages: 
-- stage : 'Testing'
-  displayName:'Phase de test'
-
+- stage : 'build'
+  displayName:'Phase de build'
+  jobs:
+  - job:'Build'
+     displayName: 'Build job'
+     pool:
+      vmImage: 'ubuntu-18.04'
+      demands:
+      - npm
     steps:
     - task: DotNetCoreCLI@2
       displayName: 'Run unit tests - $(buildConfiguration)'
