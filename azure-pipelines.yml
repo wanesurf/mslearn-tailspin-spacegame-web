@@ -10,7 +10,7 @@ stages:
 - stage : 'build'
   displayName:'Phase de build'
   jobs:
-  - job:'Build'
+  - job: 'Build'
      displayName: 'Build job'
      pool:
       vmImage: 'ubuntu-18.04'
